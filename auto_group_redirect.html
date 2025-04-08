@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Auto Group Redirect</title>
+  <script>
+    // 获取当前组别（从 localStorage 或初始化为 A）
+    let group = localStorage.getItem('lastGroup');
+    if (!group) {
+        group = 'A';
+    } else {
+        // 按 A -> B -> C -> A 的顺序轮换
+        if (group === 'A') group = 'B';
+        else if (group === 'B') group = 'C';
+        else group = 'A';
+    }
+
+    // 保存本次分配的组
+    localStorage.setItem('lastGroup', group);
+
+    // 构造跳转链接
+    let baseURL = "https://run.pavlovia.org/wli523/press_release_inhibition_counter2/";
+    let fullURL = baseURL + "?group=" + group;
+
+    // 跳转
+    window.location.href = fullURL;
+  </script>
+</head>
+<body>
+  <p>正在将你分配到组别 <strong id="groupName"></strong>，请稍候……</p>
+  <script>
+    document.getElementById("groupName").innerText = group;
+  </script>
+</body>
+</html>
